@@ -101,31 +101,6 @@
     });
 
 
-    $(document).on('click', '#btnSelectedSend', function (e) {
-        var checkedList = $.map($('input[class="child"]:checked'), function (c) { return c.value; });
-        var totalSelectedCount = checkedList.length;
-
-        if (totalSelectedCount !== 0) {
-            abp.message.confirm('Seçili ' + totalSelectedCount + ' kayıt için ITS sistemine numune üretim bildirimi yapılacak. Onaylıyor musunuz?')
-                .then(function (confirmed) {
-                    if (confirmed) {
-                        numuneTakip.services.productDetail.sendMultiple(checkedList, false);
-
-                        abp.notify.info("Gönderiliyor...");
-                        $('.loading').show();
-                    }
-                })
-                .then(function () {
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 2000)
-                });
-        }
-        else {
-            abp.notify.info("Lütfen bildirilecek olan kayıtları işaretleyiniz.");
-        }
-    });
-
     //$(document).on('change', '.parent', function (e) {
     //    var $related = $('input[name="' + $(this).attr("name") + '"]');
     //    if (this.checked) {

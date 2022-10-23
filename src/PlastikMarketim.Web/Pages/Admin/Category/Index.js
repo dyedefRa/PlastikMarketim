@@ -1,5 +1,5 @@
 ﻿$(function () {
-    var l = abp.localization.getResource('NumuneTakip');
+    var l = abp.localization.getResource('PlastikMarketim');
     //var errorDetailModal = new abp.ModalManager(abp.appPath + 'Document/ErrorDetail');
 
     //var getFilter = function () {
