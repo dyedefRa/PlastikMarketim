@@ -1,0 +1,91 @@
+﻿@using PlastikMarketim.Permissions
+@using Microsoft.AspNetCore.Authorization
+@using PlastikMarketim.Localization
+@using Microsoft.Extensions.Localization
+@inject IAuthorizationService AuthorizationService
+@inject IStringLocalizer<PlastikMarketimResource> L
+
+<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
+    <div class="sidebar-mobile-toggler text-center">
+        <a href="#" class="sidebar-mobile-main-toggle">
+            <i class="icon-arrow-left8"></i>
+        </a>
+        Navigation
+        <a href="#" class="sidebar-mobile-expand">
+            <i class="icon-screen-full"></i>
+            <i class="icon-screen-normal"></i>
+        </a>
+    </div>
+
+    <div class="sidebar-content">
+        <div class="sidebar-user">
+            <div class="card-body">
+                <div class="media">
+                    <div class="mr-3">
+                        <a href="#"><img src="~/global_assets/images/placeholders/placeholder.jpg" width="38" height="38" class="rounded-circle" alt=""></a>
+                    </div>
+
+                    <div class="media-body">
+                        <div class="media-title font-weight-semibold">@User.Identity.Name</div>
+                        <div class="font-size-xs opacity-50">
+                            <a href="/Account/Logout"><i class="icon-switch2 font-size-sm"></i> &nbsp;Çıkış Yap</a>
+                        </div>
+                    </div>
+
+                    <div class="ml-3 align-self-center">
+                        <a href="/Account/Manage" class="text-white"><i class="icon-cog3"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-sidebar-mobile">
+            <ul class="nav nav-sidebar" data-nav-type="accordion">
+                <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Numune Takip</div> <i class="icon-menu" title="Main"></i></li>
+                <li class="nav-item"><a href="/" class="nav-link"><i class="icon-home"></i> <span>@L["HomePage"]</span></a></li>
+                @if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.Users.Default))
+                {
+                    <li class="nav-item"><a href="/Identity/Users" class="nav-link"><i class="icon-user"></i> <span>@L["Users"]</span></a></li>
+                }
+                @if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.Roles.Default))
+                {
+                    <li class="nav-item"><a href="/Admin/Identity/Roles" class="nav-link"><i class="icon-wall"></i> <span>@L["Roles"]</span></a></li>
+                }
+
+                @if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.Products.Default))
+                {
+                    <li class="nav-item">
+                        <a href="/Admin/Product/Index" class="nav-link">
+                            <i class="icon-list-unordered"></i> <span>@L["ProductManagement"]</span>
+                        </a>
+                    </li>
+                }
+                @if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.Categories.Default))
+                {
+                    <li class="nav-item">
+                        <a href="/Admin/Category/Index" class="nav-link">
+                            <i class="icon-list-unordered"></i> <span>@L["CategoryManagement"]</span>
+                        </a>
+                    </li>
+                }
+                @if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.ContactForms.Default))
+                {
+                    <li class="nav-item">
+                        <a href="/Admin/ContactForm/Index" class="nav-link">
+                            <i class="icon-list-unordered"></i> <span>@L["ContactFormManagement"]</span>
+                        </a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="~/global_assets/js/main/jquery.min.js"></script>
+<script>
+    var cookieValue = localStorage.getItem("$nav");
+    $(".nav-sidebar").children(".nav-item").eq(cookieValue).addClass('navMenuHover');
+    $('.nav-item').on('click', function (e) {
+        var $clicked = $('.nav-sidebar .nav-item').index(this);
+        localStorage.setItem("$nav", $clicked);
+    });
+</script>

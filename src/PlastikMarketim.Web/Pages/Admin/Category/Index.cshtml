@@ -1,0 +1,42 @@
+﻿@page
+@using PlastikMarketim.Localization
+@using Microsoft.Extensions.Localization
+@model PlastikMarketim.Web.Pages.Admin.Category.IndexModel
+@inject IStringLocalizer<PlastikMarketimResource> L
+@section scripts
+    {
+    <abp-script src="/Pages/Document/Index.js" />
+}
+<abp-card>
+    @*<abp-card-header>
+        <abp-row>
+            <abp-column size-md="_12">
+                <abp-card-title>@L["DocumentReport"]</abp-card-title>
+            </abp-column>
+        </abp-row>
+        <br />
+        <abp-row>
+            <abp-column size="_2">
+                <abp-input asp-for="GtinFilter" label="@L["Gtin"]" />
+            </abp-column>
+            <abp-column size="_2">
+                <abp-input asp-for="LotNumberFilter" label="@L["LotNumber"]" />
+            </abp-column>
+            <abp-column size="_2">
+                <abp-input asp-for="DocumentNumberFilter" label="@L["DocumentNumber"]" />
+            </abp-column>
+            <abp-column size="_2">
+                <abp-input asp-for="InsertedDateFilter" label="@L["InsertedDate"]" type="date" />
+            </abp-column>
+            <abp-column size="_2">
+                <abp-select asp-for="DocumentStatusFilter" />
+            </abp-column>
+            <abp-column size-md="_2" style="margin:auto;">
+                <abp-button id="btnSearch" class="btn-success float-right">@L["Filter"]</abp-button>
+            </abp-column>
+        </abp-row>
+    </abp-card-header>*@
+    <abp-card-body>
+        <abp-table striped-rows="true" id="CategoriesTable"></abp-table>
+    </abp-card-body>
+</abp-card>

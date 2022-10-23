@@ -23,6 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Admin\Identity\Roles\CreateModal.cshtml" />
+    <None Include="Pages\Admin\Identity\Roles\EditModal.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Pages\**\*.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

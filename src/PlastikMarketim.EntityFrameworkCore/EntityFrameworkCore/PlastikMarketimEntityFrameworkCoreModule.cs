@@ -45,7 +45,10 @@ namespace PlastikMarketim.EntityFrameworkCore
             {
                 /* The main point to change your DBMS.
                  * See also PlastikMarketimMigrationsDbContextFactory for EF Core tooling. */
-                options.UseSqlServer();
+                options.UseSqlServer(builder =>
+                {
+                    builder.CommandTimeout(60 * 15);
+                });
             });
         }
     }

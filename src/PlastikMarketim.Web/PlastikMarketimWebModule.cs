@@ -96,13 +96,13 @@ namespace PlastikMarketim.Web
             ConfigureLocalizationServices();
             ConfigureNavigationServices();
             ConfigureAutoApiControllers();
-            //ConfigureSwaggerServices(context.Services);
-            ConfigureRedirectStrategy(context);
+            ConfigureRedirectStrategy(context, configuration);
             context.Services.AddLogging();
         }
 
-        private void ConfigureRedirectStrategy(ServiceConfigurationContext context)
+        private void ConfigureRedirectStrategy(ServiceConfigurationContext context, IConfiguration configuration)
         {
+            var basePath = configuration["App:SelfUrl"];
             context.Services
                 .ConfigureApplicationCookie(options =>
                     options.Events.OnRedirectToLogin = context =>
@@ -114,7 +114,8 @@ namespace PlastikMarketim.Web
                         }
                         else
                         {
-                            context.Response.Redirect(context.RedirectUri);
+
+                            context.Response.Redirect(basePath + "/Home/Index");
                         }
                         return Task.CompletedTask;
                     });
@@ -249,39 +250,6 @@ namespace PlastikMarketim.Web
             });
         }
 
-        private void ConfigureSwaggerServices(IServiceCollection services)
-        {
-            services.AddAbpSwaggerGen(
-                options =>
-                {
-                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "PlastikMarketim API", Version = "v1" });
-                    options.DocInclusionPredicate((docName, description) => true);
-                    options.CustomSchemaIds(type => type.FullName);
-                    options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-                    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                    {
-                        In = ParameterLocation.Header,
-                        Description = "Please insert JWT with Bearer into field",
-                        Name = "Authorization",
-                        Type = SecuritySchemeType.ApiKey
-                    });
-                    options.AddSecurityRequirement(new OpenApiSecurityRequirement {
-                        {
-                            new OpenApiSecurityScheme
-                            {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "Bearer"
-                                }
-                            },
-                            new string[] { }
-                        }
-                    });
-                }
-            );
-        }
-
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
@@ -317,19 +285,9 @@ namespace PlastikMarketim.Web
             app.UseAuthentication();
             app.UseJwtTokenMiddleware();
 
-            //if (MultiTenancyConsts.IsEnabled)
-            //{
-            //    app.UseMultiTenancy();
-            //}
-
             app.UseUnitOfWork();
             app.UseIdentityServer();
             app.UseAuthorization();
-            //app.UseSwagger();
-            //app.UseAbpSwaggerUI(options =>
-            //{
-            //    options.SwaggerEndpoint("/swagger/v1/swagger.json", "PlastikMarketim API");
-            //});
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
