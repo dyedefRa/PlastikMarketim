@@ -54,10 +54,10 @@
     </div>
     @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.First, StandardLayouts.Empty)
 
-    <partial name="_PartialHeader" />
+    <partial name="~/Pages/Admin/Shared/_PartialHeader.cshtml" />
 
     <div class="page-content">
-        <partial name="_PartialSidebar" />
+        <partial name="~/Pages/Admin/Shared/_PartialSidebar.cshtml" />
         <div class="content-wrapper">
             <div class="page-header">
                 <div class="page-header-content header-elements-md-inline">

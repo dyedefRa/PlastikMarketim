@@ -113,10 +113,8 @@ namespace PlastikMarketim.Web
                             context.Response.StatusCode = 401;
                         }
                         else
-                        {
-
                             context.Response.Redirect(basePath + "/Home/Index");
-                        }
+
                         return Task.CompletedTask;
                     });
         }

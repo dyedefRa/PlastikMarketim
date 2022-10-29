@@ -40,97 +40,40 @@
         </div>
         <div class="card card-sidebar-mobile">
             <ul class="nav nav-sidebar" data-nav-type="accordion">
-                <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Numune Takip</div> <i class="icon-menu" title="Main"></i></li>
+                <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Plastik Market</div> <i class="icon-menu" title="Main"></i></li>
                 <li class="nav-item"><a href="/" class="nav-link"><i class="icon-home"></i> <span>@L["HomePage"]</span></a></li>
-                @*@if (await AuthorizationService.IsGrantedAsync(NumuneTakipPermissions.Users.Default))
+                @if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.Users.Default))
                 {
                     <li class="nav-item"><a href="/Identity/Users" class="nav-link"><i class="icon-user"></i> <span>@L["Users"]</span></a></li>
                 }
-                @if (await AuthorizationService.IsGrantedAsync(NumuneTakipPermissions.Roles.Default))
+                @if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.Roles.Default))
                 {
                     <li class="nav-item"><a href="/Identity/Roles" class="nav-link"><i class="icon-wall"></i> <span>@L["Roles"]</span></a></li>
                 }
-                @if (await AuthorizationService.IsGrantedAsync(NumuneTakipPermissions.Experts.Default))
-                {
-                    <li class="nav-item">
-                        <a href="/Expert/Index" class="nav-link">
-                            <i class="icon-list-unordered"></i> <span>@L["Experts"]</span>
-                        </a>
-                    </li>
-                }
-
-                @if (await AuthorizationService.IsGrantedAsync(NumuneTakipPermissions.Presenters.Default))
-                {
-                    <li class="nav-item">
-                        <a href="/Presenter/Index" class="nav-link">
-                            <i class="icon-list-unordered"></i> <span>@L["Presenters"]</span>
-                        </a>
-                    </li>
-                }
-
-                @if (await AuthorizationService.IsGrantedAsync(NumuneTakipPermissions.Documents.Default))
-                {
-                    <li class="nav-item">
-                        <a href="/Document/Index" class="nav-link">
-                            <i class="icon-list-unordered"></i> <span>@L["DocumentReport"]</span>
-                        </a>
-                    </li>
-                }
-
-                @if (await AuthorizationService.IsGrantedAsync(NumuneTakipPermissions.Products.Default))
-                {
-                    <li class="nav-item">
-                        <a href="/Product/Index" class="nav-link">
-                            <i class="icon-list-unordered"></i> <span>@L["ProductionNotificationReport"]</span>
-                        </a>
-                    </li>
-                }
-
-                @if (await AuthorizationService.IsGrantedAsync(NumuneTakipPermissions.SampleDropProcessings.Default))
-                {
-                    <li class="nav-item">
-                        <a href="/SampleDropProcessing/Index" class="nav-link">
-                            <i class="icon-list-unordered"></i> <span>@L["SampleDropProcessings"]</span>
-                        </a>
-                    </li>
-                }
-
-
-                @if (await AuthorizationService.IsGrantedAsync(NumuneTakipPermissions.DeactivationProcessings.Default))
-                {
-                    <li class="nav-item">
-                        <a href="/DeactivationProcessing/Index" class="nav-link">
-                            <i class="icon-list-unordered"></i> <span>@L["DeactivationProcessings"]</span>
-                        </a>
-                    </li>
-                }
-
-                @if (await AuthorizationService.IsGrantedAsync(NumuneTakipPermissions.DeactivationApprove.Default))
-                {
-                    <li class="nav-item">
-                        <a href="/DeactivationProcessing/Approve" class="nav-link">
-                            <i class="icon-list-unordered"></i> <span>@L["DeactivationProcessingApproves"]</span>
-                        </a>
-                    </li>
-                }
-
-                @if (await AuthorizationService.IsGrantedAsync(NumuneTakipPermissions.StockProcessings.Default))
-                {
-                    <li class="nav-item">
-                        <a href="/StockProcessing/Index" class="nav-link">
-                            <i class="icon-list-unordered"></i> <span>@L["StockProcessings"]</span>
-                        </a>
-                    </li>
-                }
-                @if (await AuthorizationService.IsGrantedAsync(NumuneTakipPermissions.BlockedMailContents
-                    .Default))
-                {
-                    <li class="nav-item">
-                        <a href="/BlockedMailContent/Index" class="nav-link">
-                            <i class="icon-list-unordered"></i> <span>@L["BlockedMailContents"]</span>
-                        </a>
-                    </li>
-                }*@
+                @*@if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.Products.Default))
+                    {*@
+                <li class="nav-item">
+                    <a href="/Admin/Product/Index" class="nav-link">
+                        <i class="icon-list-unordered"></i> <span>@L["ProductManagement"]</span>
+                    </a>
+                </li>
+                @*}
+                    @if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.Categories.Default))
+                    {*@
+                <li class="nav-item">
+                    <a href="/Admin/Category/Index" class="nav-link">
+                        <i class="icon-list-unordered"></i> <span>@L["CategoryManagement"]</span>
+                    </a>
+                </li>
+                @*}
+                    @if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.ContactForms.Default))
+                    {*@
+                <li class="nav-item">
+                    <a href="/Admin/ContactForm/Index" class="nav-link">
+                        <i class="icon-list-unordered"></i> <span>@L["ContactFormManagement"]</span>
+                    </a>
+                </li>
+                @*  *@}
 
 
             </ul>

@@ -145,7 +145,8 @@ namespace PlastikMarketim.Web.Pages.Admin.Account
             Debug.Assert(userResult != null, nameof(userResult) + " != null");
             _auditingManager.Current.Log.Comments.Add("Giriş yapıldı.{ " + LoginInput.UserName + " }");
 
-            return RedirectSafely(ReturnUrl, ReturnUrlHash);
+            //return RedirectSafely(ReturnUrl, ReturnUrlHash);
+            return RedirectToAction("Index", "Admin");
         }
 
         protected virtual async Task<List<ExternalProviderModel>> GetExternalProviders()
