@@ -13,7 +13,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace PlastikMarketim.Services
 {
-    //[Authorize(PlastikMarketimPermissions.Products.Default)]
+    [Authorize]
     public class ProductAppService : CrudAppService<Product, ProductDto, int, PagedAndSortedResultRequestDto, ProductDto, ProductDto>
   , IProductAppService
     {

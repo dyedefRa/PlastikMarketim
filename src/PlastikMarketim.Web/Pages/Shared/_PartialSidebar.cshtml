@@ -51,29 +51,29 @@
                     <li class="nav-item"><a href="/Identity/Roles" class="nav-link"><i class="icon-wall"></i> <span>@L["Roles"]</span></a></li>
                 }
                 @*@if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.Products.Default))
-                    {*@
+        {*@
                 <li class="nav-item">
                     <a href="/Admin/Product/Index" class="nav-link">
                         <i class="icon-list-unordered"></i> <span>@L["ProductManagement"]</span>
                     </a>
                 </li>
                 @*}
-                    @if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.Categories.Default))
-                    {*@
+        @if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.Categories.Default))
+        {*@
                 <li class="nav-item">
                     <a href="/Admin/Category/Index" class="nav-link">
                         <i class="icon-list-unordered"></i> <span>@L["CategoryManagement"]</span>
                     </a>
                 </li>
                 @*}
-                    @if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.ContactForms.Default))
-                    {*@
+        @if (await AuthorizationService.IsGrantedAsync(PlastikMarketimPermissions.ContactForms.Default))
+        {*@
                 <li class="nav-item">
                     <a href="/Admin/ContactForm/Index" class="nav-link">
                         <i class="icon-list-unordered"></i> <span>@L["ContactFormManagement"]</span>
                     </a>
                 </li>
-                @*  *@}
+                @* } *@
 
 
             </ul>
