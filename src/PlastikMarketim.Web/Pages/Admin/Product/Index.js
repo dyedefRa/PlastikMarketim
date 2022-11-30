@@ -1,10 +1,12 @@
 ﻿$(function () {
     var l = abp.localization.getResource('PlastikMarketim');
-    //var detailModal = new abp.ModalManager(abp.appPath + 'Product/Detail');
+    var editModal = new abp.ModalManager(abp.appPath + 'Admin/Product/Edit');
+    var createModal = new abp.ModalManager(abp.appPath + 'Admin/Product/Create');
+    var deleteModal = new abp.ModalManager(abp.appPath + 'Admin/Product/Delete');
 
     var getFilter = function () {
         return {
-            gtinFilter: $("#NameFilter").val()           
+            nameFilter: $("#NameFilter").val()
         };
     };
 
@@ -23,11 +25,17 @@
                         items:
                             [
                                 {
-                                    text: l('NotificationDetail'),
+                                    text: l('Edit'),
                                     action: function (data) {
-                                        detailModal.open({ ProductId: data.record.id });
+                                        editModal.open({ id: data.record.id });
                                     }
-                                }                              
+                                },
+                                {
+                                    text: l('Delete'),
+                                    action: function (data) {
+                                        deleteModal.open({ id: data.record.id });
+                                    }
+                                }
                             ]
                     }
                 },
@@ -35,6 +43,9 @@
                     title: l('ProductName'),
                     data: "name",
                     render: function (data) {
+                        if (data === null || data === '') {
+                            return '-'
+                        }
                         return data;
                     }
                 },
@@ -56,7 +67,10 @@
                     title: l('Image'),
                     data: "fileUrl",
                     render: function (data) {
-                        return data;
+                        if (data === null || data === '') {
+                            return '';
+                        }
+                        return '<img  src= "' + data + '"  class="form-group" width="80"  />';
                     }
                 },
                 {
@@ -75,17 +89,7 @@
                     render: function (data) {
                         return data;
                     }
-                },
-                //{
-                //    title: l('ProductName'),
-                //    data: "name",
-                //    render: function (data) {
-                //        if (data === null || data === '') {
-                //            return '-'
-                //        }
-                //        return data;
-                //    }
-                //},
+                }
             ],
             createdRow: function (nRow, aData) {
             }
@@ -100,15 +104,22 @@
         });
     });
 
+    $('#btnNew').on('click', function (e) {
+        createModal.open({});
+    });
 
-    //$(document).on('change', '.parent', function (e) {
-    //    var $related = $('input[name="' + $(this).attr("name") + '"]');
-    //    if (this.checked) {
-    //        $related.prop("checked", true);
-    //    }
-    //    else {
-    //        $related.prop("checked", false);
-    //    }
-    //});
+    createModal.onResult(function () {
+        dataTable.ajax.reload();
+        abp.notify.info(l('Successfully'));
+    });
 
+    editModal.onResult(function () {
+        dataTable.ajax.reload();
+        abp.notify.info(l('Successfully'));
+    });
+
+    deleteModal.onResult(function () {
+        dataTable.ajax.reload();
+        abp.notify.info(l('Successfully'));
+    });
 });

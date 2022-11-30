@@ -4,7 +4,7 @@ using PlastikMarketim.Abstracts;
 using PlastikMarketim.Dtos.Products;
 using PlastikMarketim.Dtos.Products.ViewModels;
 using PlastikMarketim.Entities.Products;
-using PlastikMarketim.Permissions;
+using PlastikMarketim.Extensions;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -45,6 +45,7 @@ namespace PlastikMarketim.Services
                 var relatedCategory = x.Category;
                 var productViewModel = ObjectMapper.Map<Product, ProductViewModel>(x);
                 productViewModel.CategoryName = relatedCategory.Name;
+                productViewModel.FileUrl = x.FileUrl.FullPathToFilePath();
                 return productViewModel;
             }).ToList();
 

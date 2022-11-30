@@ -3,6 +3,33 @@
   "texts": {
     "Menu:Home": "Ana sayfa",
     "Welcome": "Hoşgeldiniz",
-    "LongWelcomeMessage": "Uygulamaya hoşgeldiniz. Bu, ABP framework'ü üzerine bina edilmiş bir başlangıç projesidir. Daha fazla bilgi için abp.io adresini ziyaret edebilirsiniz."
+    "LongWelcomeMessage": "Uygulamaya hoşgeldiniz. Bu, ABP framework'ü üzerine bina edilmiş bir başlangıç projesidir. Daha fazla bilgi için abp.io adresini ziyaret edebilirsiniz.",
+
+    //GENEL
+    "InsertedDate": "Oluşturulma Tarihi",
+    "Status": "Durum",
+    "Edit": "Düzenle",
+    "Filter": "Filtrele",
+    "AddNew": "Yeni Ekle",
+    "Description": "Açıklama",
+    "Successfully": "İşlem başarılı",
+
+    //ÜRÜN
+    "ProductManagement": "Ürün Yönetimi",
+    "ProductName": "Ürün Adı",
+    "Product": "Ürün",
+    "Unit": "Adet",
+    "Price": "Fiyat",
+    "Image": "Fotoğraf",
+    "AddNewProduct": "Yeni Ürün Ekle",
+
+    //KATEGORİ
+    "CategoryManagement": "Kategori Yönetimi",
+    "CategoryName": "Kategori Adı",
+    "Category": "Kategori",
+
+
+    //ILETİŞİM FORMU
+    "ContactFormManagement": "İletişim Formu Yönetimi"
   }
 }

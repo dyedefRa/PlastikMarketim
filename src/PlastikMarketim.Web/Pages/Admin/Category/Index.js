@@ -1,18 +1,14 @@
 ﻿$(function () {
     var l = abp.localization.getResource('PlastikMarketim');
-    //var errorDetailModal = new abp.ModalManager(abp.appPath + 'Document/ErrorDetail');
+    var detailModal = new abp.ModalManager(abp.appPath + 'Admin/Category/Detail');
+    var createModal = new abp.ModalManager(abp.appPath + 'Admin/Category/Create');
+    var deleteModal = new abp.ModalManager(abp.appPath + 'Admin/Category/Delete');
 
-    //var getFilter = function () {
-    //    var normInsertedDate = GetNormalizeDate($("#InsertedDateFilter").val());
-
-    //    return {
-    //        gtinFilter: $("#GtinFilter").val(),
-    //        lotNumberFilter: $("#LotNumberFilter").val(),
-    //        documentNumberFilter: $("#DocumentNumberFilter").val(),
-    //        insertedDateFilter: normInsertedDate,
-    //        documentStatusFilter: $("#DocumentStatusFilter").val()
-    //    };
-    //};
+    var getFilter = function () {
+        return {
+            nameFilter: $("#NameFilter").val()
+        };
+    };
 
     var dataTable = $('#CategoriesTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
@@ -21,7 +17,7 @@
             order: [],
             searching: false,
             scrollX: true,
-            ajax: abp.libs.datatables.createAjax(plastikMarketim.services.document.getDocumentList, getFilter),
+            ajax: abp.libs.datatables.createAjax(plastikMarketim.services.category.getCategoryList, getFilter),
             columnDefs: [
                 {
                     title: l('Actions'),
@@ -29,45 +25,30 @@
                         items:
                             [
                                 {
-                                    text: l('Details'),
+                                    text: l('Edit'),
                                     action: function (data) {
-                                        errorDetailModal.open({ documentId: data.record.id });
+                                        detailModal.open({ documentId: data.record.id });
+                                    }
+                                },
+                                {
+                                    text: l('Delete'),
+                                    action: function (data) {
+                                        deleteModal.open({ ProductId: data.record.id });
                                     }
                                 }
                             ]
                     }
                 },
                 {
-                    title: l('Gtin'),
-                    data: "gtin",
+                    title: l('CategoryName'),
+                    data: "name",
                     render: function (data) {
                         return data;
                     }
                 },
                 {
-                    title: l('LotNumber'),
-                    data: "lotNumber",
-                    render: function (data) {
-                        return data;
-                    }
-                },
-                {
-                    title: l('DocumentNumber'),
-                    data: "documentNumber",
-                    render: function (data) {
-                        return data;
-                    }
-                },
-                {
-                    title: l('DocumentPath'),
-                    data: "documentPath",
-                    render: function (data) {
-                        return data;
-                    }
-                },
-                {
-                    title: l('TotalErrorCount'),
-                    data: "totalErrorCount",
+                    title: l('Description'),
+                    data: "description",
                     render: function (data) {
                         return data;
                     }
@@ -83,15 +64,14 @@
                     }
                 },
                 {
-                    title: l('DocumentStatus'),
-                    data: "documentStatus",
+                    title: l('Status'),
+                    data: "status",
                     render: function (data) {
-                        return l('Enum:DocumentStatus:' + data);
+                        return data;
                     }
                 }
             ],
             createdRow: function (nRow, aData) {
-                /*console.log(aData);*/
             }
         })
     );
@@ -104,4 +84,22 @@
         });
     });
 
+    $('#btnNew').on('click', function (e) {
+        createModal.open({});
+    });
+
+    createModal.onResult(function () {
+        dataTable.ajax.reload();
+        abp.notify.info(l('Successfully'));
+    });
+
+    editModal.onResult(function () {
+        dataTable.ajax.reload();
+        abp.notify.info(l('Successfully'));
+    });
+
+    deleteModal.onResult(function () {
+        dataTable.ajax.reload();
+        abp.notify.info(l('Successfully'));
+    });
 });

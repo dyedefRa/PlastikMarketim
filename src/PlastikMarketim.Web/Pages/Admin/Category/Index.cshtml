@@ -5,38 +5,40 @@
 @inject IStringLocalizer<PlastikMarketimResource> L
 @section scripts
     {
-    <abp-script src="/Pages/Document/Index.js" />
+    <abp-script src="/Pages/Admin/Category/Index.js" />
 }
+@Html.AntiForgeryToken()
 <abp-card>
-    @*<abp-card-header>
+    <abp-card-header>
         <abp-row>
             <abp-column size-md="_12">
-                <abp-card-title>@L["DocumentReport"]</abp-card-title>
+                <abp-card-title>@L["CategoryManagement"]</abp-card-title>
             </abp-column>
         </abp-row>
         <br />
         <abp-row>
-            <abp-column size="_2">
-                <abp-input asp-for="GtinFilter" label="@L["Gtin"]" />
+            <abp-column size="_4">
+                <abp-input asp-for="NameFilter" label="@L["CategoryName"]" />
             </abp-column>
-            <abp-column size="_2">
-                <abp-input asp-for="LotNumberFilter" label="@L["LotNumber"]" />
+            <abp-column size="_4">
+
             </abp-column>
-            <abp-column size="_2">
-                <abp-input asp-for="DocumentNumberFilter" label="@L["DocumentNumber"]" />
-            </abp-column>
-            <abp-column size="_2">
-                <abp-input asp-for="InsertedDateFilter" label="@L["InsertedDate"]" type="date" />
-            </abp-column>
-            <abp-column size="_2">
-                <abp-select asp-for="DocumentStatusFilter" />
-            </abp-column>
-            <abp-column size-md="_2" style="margin:auto;">
+            <abp-column size-md="_4" style="margin:auto;">
                 <abp-button id="btnSearch" class="btn-success float-right">@L["Filter"]</abp-button>
             </abp-column>
         </abp-row>
-    </abp-card-header>*@
+    </abp-card-header>
     <abp-card-body>
+        <abp-row>
+            <abp-column size-md="_12">
+                <div class="float-right">
+                    <abp-button id="btnNew" button-type="Primary" type="submit">
+                        <i class="fa fa-plus"></i>
+                        @L["AddNew"]
+                    </abp-button>
+                </div>
+            </abp-column>
+        </abp-row>
         <abp-table striped-rows="true" id="CategoriesTable"></abp-table>
     </abp-card-body>
 </abp-card>

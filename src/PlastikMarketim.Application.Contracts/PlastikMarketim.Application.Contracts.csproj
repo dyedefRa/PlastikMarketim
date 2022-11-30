@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Volo.Abp.ObjectExtending" Version="4.4.4" />
     <PackageReference Include="Volo.Abp.Account.Application.Contracts" Version="4.4.4" />
     <PackageReference Include="Volo.Abp.Identity.Application.Contracts" Version="4.4.4" />
@@ -23,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Concretes\" />
-    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

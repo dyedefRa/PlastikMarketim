@@ -1,0 +1,25 @@
+﻿@page
+@using PlastikMarketim.Localization
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model PlastikMarketim.Web.Pages.Admin.Product.EditModel
+@inject IStringLocalizer<PlastikMarketimResource> L
+@{
+    Layout = null;
+}
+
+<form asp-page="/Admin/Product/Edit">
+    <abp-modal>
+        <abp-modal-header title="@L["UpdateProduct"]"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Product.Id" type="hidden" />
+            <abp-input asp-for="Product.Name" label="@L["ProductName"]" />
+            <abp-select asp-for="Product.CategoryId" asp-items="@Model.Categories" label="@L["Category"]" />
+            <abp-input asp-for="Product.Unit" label="@L["Unit"]" />
+            <abp-input asp-for="Product.Price" label="@L["Price"]" />
+            <img src="@Model.Product.FileUrl" class="form-group" alt="" width="550" height="300">
+            <abp-input asp-for="Product.File" label="@L["Image"]" accept="image/png, image/gif, image/jpeg" />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

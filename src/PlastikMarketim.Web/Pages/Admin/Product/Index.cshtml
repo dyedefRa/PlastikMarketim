@@ -12,25 +12,33 @@
     <abp-card-header>
         <abp-row>
             <abp-column size-md="_12">
-                <abp-card-title>@L["ProductManage"]</abp-card-title>
+                <abp-card-title>@L["ProductManagement"]</abp-card-title>
             </abp-column>
         </abp-row>
         <br />
         <abp-row>
-            <abp-column size="_12">
+            <abp-column size="_4">
                 <abp-input asp-for="NameFilter" label="@L["ProductName"]" />
             </abp-column>
-       
-        </abp-row>
-        <abp-row>
-            <abp-column size-md="_8">
+            <abp-column size="_4">
+
             </abp-column>
-            <abp-column size-md="_4">
+            <abp-column size-md="_4" style="margin:auto;">
                 <abp-button id="btnSearch" class="btn-success float-right">@L["Filter"]</abp-button>
             </abp-column>
         </abp-row>
     </abp-card-header>
     <abp-card-body>
+        <abp-row>
+            <abp-column size-md="_12">
+                <div class="float-right">
+                    <abp-button id="btnNew" button-type="Primary" type="submit">
+                        <i class="fa fa-plus"></i>
+                        @L["AddNew"]
+                    </abp-button>
+                </div>
+            </abp-column>
+        </abp-row>
         <abp-table striped-rows="true" id="ProductsTable"></abp-table>
     </abp-card-body>
 </abp-card>
