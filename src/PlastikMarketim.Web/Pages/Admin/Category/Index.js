@@ -1,6 +1,6 @@
 ﻿$(function () {
     var l = abp.localization.getResource('PlastikMarketim');
-    var detailModal = new abp.ModalManager(abp.appPath + 'Admin/Category/Detail');
+    var editModal = new abp.ModalManager(abp.appPath + 'Admin/Category/Edit');
     var createModal = new abp.ModalManager(abp.appPath + 'Admin/Category/Create');
     var deleteModal = new abp.ModalManager(abp.appPath + 'Admin/Category/Delete');
 
@@ -27,13 +27,13 @@
                                 {
                                     text: l('Edit'),
                                     action: function (data) {
-                                        detailModal.open({ documentId: data.record.id });
+                                        editModal.open({ id: data.record.id });
                                     }
                                 },
                                 {
                                     text: l('Delete'),
                                     action: function (data) {
-                                        deleteModal.open({ ProductId: data.record.id });
+                                        deleteModal.open({ id: data.record.id });
                                     }
                                 }
                             ]
@@ -67,7 +67,7 @@
                     title: l('Status'),
                     data: "status",
                     render: function (data) {
-                        return data;
+                        return l('Enum:Status:' + data)
                     }
                 }
             ],

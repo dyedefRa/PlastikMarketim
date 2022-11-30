@@ -87,7 +87,7 @@
                     title: l('Status'),
                     data: "status",
                     render: function (data) {
-                        return data;
+                        return l('Enum:Status:' + data)
                     }
                 }
             ],

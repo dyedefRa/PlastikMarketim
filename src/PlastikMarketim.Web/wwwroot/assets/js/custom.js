@@ -35,35 +35,11 @@ $(document).ready(function () {
         enableCaseInsensitiveFiltering: true
     });
 
-    //CKEDITOR.on('instanceReady', function () {
-    //    $.each(CKEDITOR.instances, function (instance) {
-    //        CKEDITOR.instances[instance].on("change", function (e) {
-    //            for (instance in CKEDITOR.instances)
-    //                CKEDITOR.instances[instance].updateElement();
-    //            //ekleme1 
-    //            CKEDITOR.instances[instance].on('change', function () {
-    //                $('#PageModel_Explanation').valid();
-    //            });
-    //        });
-    //    });
-    //});
 
     $.Format.phoneFormat();
 });
 
 
-
-//$.CUSTOMCKEDITOR = {
-
-//    setCKEDITOR: function (element, height) {
-//        if (height === undefined || height === null || height === 0) {
-//            height = 170;
-//        }
-
-//        CKEDITOR.replace(element, { height: height, allowedContent: true });
-//    }
-
-//};
 
 $.MONEYFORMAT = {
 
@@ -183,4 +159,14 @@ function arrayMove(arr, fromIndex, toIndex) {
     var element = arr[fromIndex];
     arr.splice(fromIndex, 1);
     arr.splice(toIndex, 0, element);
+}
+
+function applyShortening(value) {
+    if (value === null || value === '') {
+        return '';
+    }
+    if (value.length > 100) {
+        return value.substring(0, 100) + ' ...';
+    }
+    return value;
 }

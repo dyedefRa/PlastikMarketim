@@ -6,6 +6,7 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
 namespace PlastikMarketim.Web.Pages.Admin.Category
 {
@@ -44,6 +45,7 @@ namespace PlastikMarketim.Web.Pages.Admin.Category
             [DisplayName("CategoryName")]
             public string Name { get; set; }
             [Required]
+            [TextArea(Rows = 2)]
             public string Description { get; set; }
             [Required]
             [DataType(DataType.Date)]

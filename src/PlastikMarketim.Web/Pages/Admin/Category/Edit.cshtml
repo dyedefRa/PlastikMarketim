@@ -1,4 +1,21 @@
 ﻿@page
+@using PlastikMarketim.Localization
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
 @model PlastikMarketim.Web.Pages.Admin.Category.EditModel
+@inject IStringLocalizer<PlastikMarketimResource> L
 @{
+    Layout = null;
 }
+
+<form asp-page="/Admin/Category/Edit">
+    <abp-modal>
+        <abp-modal-header title="@L["UpdateCategory"]"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Category.Id" type="hidden" />
+            <abp-input asp-for="Category.Name" label="@L["CategoryName"]" />
+            <abp-input asp-for="Category.Description" label="@L["Description"]" />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

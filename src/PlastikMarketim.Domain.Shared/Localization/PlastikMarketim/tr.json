@@ -30,6 +30,18 @@
 
 
     //ILETİŞİM FORMU
-    "ContactFormManagement": "İletişim Formu Yönetimi"
+    "ContactFormManagement": "İletişim Formu Yönetimi",
+    "FullName": "Ad/Soyad",
+    "Email": "Email",
+    "PhoneNumber": "Telefon Numarası",
+    "Subject": "Mail Başlık",
+    "MailSubject": "Mail İçerik",
+
+    //ENUMLAR
+    "Enum:Status:0": "Belirtilmemiş",
+    "Enum:Status:-1": "Pasif",
+    "Enum:Status:1": "Aktif",
+    "Enum:Status:-255": "Silinmiş"
+
   }
 }

@@ -1,4 +1,34 @@
 ﻿@page
+@using PlastikMarketim.Localization
+@using Microsoft.Extensions.Localization
 @model PlastikMarketim.Web.Pages.Admin.ContactForm.IndexModel
-@{
+@inject IStringLocalizer<PlastikMarketimResource> L
+@section scripts
+    {
+    <abp-script src="/Pages/Admin/ContactForm/Index.js" />
 }
+@Html.AntiForgeryToken()
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_12">
+                <abp-card-title>@L["ContactFormManagement"]</abp-card-title>
+            </abp-column>
+        </abp-row>
+        <br />
+        <abp-row>
+            <abp-column size="_4">
+                <abp-input asp-for="FullNameFilter" label="@L["FullName"]" />
+            </abp-column>
+            <abp-column size="_4">
+                <abp-input asp-for="EmailFilter" label="@L["Email"]" />
+            </abp-column>
+            <abp-column size-md="_4" style="margin:auto;">
+                <abp-button id="btnSearch" class="btn-success float-right">@L["Filter"]</abp-button>
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="ContactFormsTable"></abp-table>
+    </abp-card-body>
+</abp-card>

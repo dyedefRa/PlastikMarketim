@@ -9,6 +9,9 @@ namespace PlastikMarketim.Web.Pages.Admin.ContactForm
 {
     public class IndexModel : PageModel
     {
+        public string FullNameFilter { get; set; }
+        public string EmailFilter { get; set; }
+
         public void OnGet()
         {
         }
