@@ -2,9 +2,11 @@
 using PlastikMarketim.Dtos.Categories;
 using PlastikMarketim.Dtos.Categories.ViewModels;
 using PlastikMarketim.Dtos.ContactForms.ViewModels;
+using PlastikMarketim.Dtos.Files;
 using PlastikMarketim.Dtos.Products.ViewModels;
 using PlastikMarketim.Entities.Categories;
 using PlastikMarketim.Entities.ContactForms;
+using PlastikMarketim.Entities.Files;
 using PlastikMarketim.Entities.Products;
 
 namespace PlastikMarketim
@@ -27,6 +29,10 @@ namespace PlastikMarketim
             #region ContactForm
             CreateMap<ContactForm, ContactFormDto>().ReverseMap();
             CreateMap<ContactForm, ContactFormViewModel>();
+            #endregion
+
+            #region File
+            CreateMap<File, FileDto>().ReverseMap();
             #endregion
         }
     }

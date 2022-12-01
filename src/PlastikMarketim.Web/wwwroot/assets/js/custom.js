@@ -162,11 +162,26 @@ function arrayMove(arr, fromIndex, toIndex) {
 }
 
 function applyShortening(value) {
-    if (value === null || value === '') {
-        return '';
+    if (value === null || value === '' || value === 0) {
+        return '-';
     }
     if (value.length > 100) {
         return value.substring(0, 100) + ' ...';
     }
     return value;
+}
+
+function checkNullable(value) {
+    if (value === null || value === '' || value === 0) {
+        return '-'
+    }
+    return value;
+}
+
+//TODOO Buraya default image gelmelı
+function applyImage(value) {
+    if (value === null || value === '' || value === 0) {
+        return '-';
+    }
+    return '<img  src= "' + value + '"  class="form-group" width="60" />';
 }

@@ -40,7 +40,10 @@ namespace PlastikMarketim.Web.Pages.Admin.Product
         {
             var productDto = await _productAppService.GetAsync(id);
             Product = ObjectMapper.Map<ProductDto, EditProductViewModel>(productDto);
-            Product.FileUrl = Product.FileUrl.FullPathToFilePath();
+            Product.ImageUrl = _fileAppService.GetAsync(Product.ImageId).Result.FilePath;
+            if (Product.DetailImageId.HasValue)
+                Product.DetailImageUrl = _fileAppService.GetAsync(Product.DetailImageId.Value).Result.FilePath;
+
 
             var categoryLookUpDtos = await _categoryAppService.GetLookupAsync();
             Categories = categoryLookUpDtos.Items
@@ -52,14 +55,23 @@ namespace PlastikMarketim.Web.Pages.Admin.Product
         {
             var dto = ObjectMapper.Map<EditProductViewModel, ProductDto>(Product);
 
-            if (Product.File != null)
+            if (Product.ImageFile != null)
             {
-                var fileResult = await _fileAppService.SaveFileAsync(Product.File, UploadType.Product);
+                var fileResult = await _fileAppService.SaveFileAsync(Product.ImageFile, UploadType.Product);
                 if (!fileResult.Success)
                 {
                     //TODO:Hata döndürülecek
                 }
-                dto.FileUrl = fileResult.Message;
+                dto.ImageId = fileResult.Data.Id;
+            }
+            if (Product.DetailImageFile != null)
+            {
+                var fileResult = await _fileAppService.SaveFileAsync(Product.DetailImageFile, UploadType.Product);
+                if (!fileResult.Success)
+                {
+                    //TODO:Hata döndürülecek
+                }
+                dto.DetailImageId = fileResult.Data.Id;
             }
 
             await _productAppService.UpdateAsync(dto.Id, dto);
@@ -73,21 +85,31 @@ namespace PlastikMarketim.Web.Pages.Admin.Product
             public int Id { get; set; }
             [Required]
             [StringLength(128)]
-            [DisplayName("ProductName")]
+            //[DisplayName("ProductName")]
             public string Name { get; set; }
-            [Required]
-            public int Unit { get; set; }
-            [Required]
-            [DisplayName("Price")]
+            public string Brand { get; set; }
+            public string Material { get; set; }
+            public decimal Weight { get; set; }
+            public string Dimension { get; set; }
+            [TextArea(Rows = 2)]
+            public string Description { get; set; }
+            public Nullable<int> KoliUnit { get; set; }
+            public decimal KoliPrice { get; set; }
+            public Nullable<int> PackageUnit { get; set; }
+            public decimal PackagePrice { get; set; }
+            public Nullable<int> Unit { get; set; }
             public decimal Price { get; set; }
-
             [Required]
-            [DisplayName("Image")]
-            public IFormFile File { get; set; }
-            public string FileUrl { get; set; }
+            //[DisplayName("Image")]
+            public IFormFile ImageFile { get; set; }
+            public int ImageId { get; set; }
+            public string ImageUrl { get; set; }
+            public IFormFile DetailImageFile { get; set; }
+            public Nullable<int> DetailImageId { get; set; }
+            public string DetailImageUrl { get; set; }
             [Required]
             [SelectItems(nameof(Categories))]
-            [DisplayName("Category")]
+            //[DisplayName("Category")]
             public int CategoryId { get; set; }
             [Required]
             [DataType(DataType.Date)]

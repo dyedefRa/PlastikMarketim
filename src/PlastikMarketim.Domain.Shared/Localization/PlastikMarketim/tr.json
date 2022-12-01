@@ -13,14 +13,23 @@
     "AddNew": "Yeni Ekle",
     "Description": "Açıklama",
     "Successfully": "İşlem başarılı",
+    "Image": "Fotoğraf",
+    "DetailImage": "Detay Fotoğraf",
 
     //ÜRÜN
     "ProductManagement": "Ürün Yönetimi",
     "ProductName": "Ürün Adı",
     "Product": "Ürün",
+    "Brand": "Marka",
+    "Material": "Malzeme",
+    "Weight": "Ağırlık",
+    "Dimension": "Boyut",
+    "KoliUnit": "Koli içi Adet",
+    "KoliPrice": "Koli Fiyat",
+    "PackageUnit": "Paket içi Adet",
+    "PackagePrice": "Paket Fiyat",
     "Unit": "Adet",
     "Price": "Fiyat",
-    "Image": "Fotoğraf",
     "AddNewProduct": "Yeni Ürün Ekle",
 
     //KATEGORİ

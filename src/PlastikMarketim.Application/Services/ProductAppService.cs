@@ -4,7 +4,6 @@ using PlastikMarketim.Abstracts;
 using PlastikMarketim.Dtos.Products;
 using PlastikMarketim.Dtos.Products.ViewModels;
 using PlastikMarketim.Entities.Products;
-using PlastikMarketim.Extensions;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
@@ -14,11 +13,9 @@ using Volo.Abp.Domain.Repositories;
 namespace PlastikMarketim.Services
 {
     [Authorize]
-    public class ProductAppService : CrudAppService<Product, ProductDto, int, PagedAndSortedResultRequestDto, ProductDto, ProductDto>
-  , IProductAppService
+    public class ProductAppService : CrudAppService<Product, ProductDto, int, PagedAndSortedResultRequestDto, ProductDto, ProductDto>, IProductAppService
     {
-        public ProductAppService(
-           IRepository<Product, int> repository) : base(repository)
+        public ProductAppService(IRepository<Product, int> repository) : base(repository)
         {
         }
 
@@ -28,9 +25,8 @@ namespace PlastikMarketim.Services
 
             var query = Repository.AsQueryable();
 
-            query = query.Include(x => x.Category);
+            query = query.Include(x => x.Category).Include(x => x.Image).Include(x => x.DetailImage);
 
-            //FILTER
             if (!string.IsNullOrEmpty(input.NameFilter))
                 query = query.Where(x => x.Name.Contains(input.NameFilter));
 
@@ -38,18 +34,18 @@ namespace PlastikMarketim.Services
             query = ApplySorting(query, input);
             query = ApplyPaging(query, input);
 
-            var productDtos = await query.ToListAsync();
-
-            var data = productDtos.Select(x =>
+            var entities = await query.ToListAsync();
+            var models = entities.Select(x =>
             {
                 var relatedCategory = x.Category;
-                var productViewModel = ObjectMapper.Map<Product, ProductViewModel>(x);
-                productViewModel.CategoryName = relatedCategory.Name;
-                productViewModel.FileUrl = x.FileUrl.FullPathToFilePath();
-                return productViewModel;
+                var viewModel = ObjectMapper.Map<Product, ProductViewModel>(x);
+                viewModel.CategoryName = relatedCategory.Name;
+                viewModel.ImageUrl = x.Image.FilePath;
+                viewModel.DetailImageUrl = x.DetailImage?.FilePath;
+                return viewModel;
             }).ToList();
 
-            result.Items = data;
+            result.Items = models;
             result.TotalCount = totalCount;
 
             return result;

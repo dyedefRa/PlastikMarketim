@@ -47,6 +47,13 @@
                     }
                 },
                 {
+                    title: l('Image'),
+                    data: "imageUrl",
+                    render: function (data) {
+                        return applyImage(data);
+                    }
+                },
+                {
                     title: l('Description'),
                     data: "description",
                     render: function (data) {

@@ -13,12 +13,25 @@
         <abp-modal-header title="@L["UpdateProduct"]"></abp-modal-header>
         <abp-modal-body>
             <abp-input asp-for="Product.Id" type="hidden" />
+            <abp-input asp-for="Product.ImageId" type="hidden" />
+            <abp-input asp-for="Product.DetailImageId" type="hidden" />
             <abp-input asp-for="Product.Name" label="@L["ProductName"]" />
             <abp-select asp-for="Product.CategoryId" asp-items="@Model.Categories" label="@L["Category"]" />
+            <img src="@Model.Product.ImageUrl" class="form-group" alt="" width="550" height="300">
+            <abp-input asp-for="Product.ImageFile" label="@L["Image"]" accept="image/png, image/gif, image/jpeg" />
+            <img src="@Model.Product.DetailImageUrl" class="form-group" alt="" width="550" height="300">
+            <abp-input asp-for="Product.DetailImageFile" label="@L["DetailImage"]" accept="image/png, image/gif, image/jpeg" />
+            <abp-input asp-for="Product.KoliUnit" label="@L["KoliUnit"]" />
+            <abp-input asp-for="Product.KoliPrice" label="@L["KoliPrice"]" />
+            <abp-input asp-for="Product.PackageUnit" label="@L["PackageUnit"]" />
+            <abp-input asp-for="Product.PackagePrice" label="@L["PackagePrice"]" />
             <abp-input asp-for="Product.Unit" label="@L["Unit"]" />
             <abp-input asp-for="Product.Price" label="@L["Price"]" />
-            <img src="@Model.Product.FileUrl" class="form-group" alt="" width="550" height="300">
-            <abp-input asp-for="Product.File" label="@L["Image"]" accept="image/png, image/gif, image/jpeg" />
+            <abp-input asp-for="Product.Description" label="@L["Description"]" />
+            <abp-input asp-for="Product.Brand" label="@L["Brand"]" />
+            <abp-input asp-for="Product.Weight" label="@L["Weight"]" />
+            <abp-input asp-for="Product.Dimension" label="@L["Dimension"]" />
+            <abp-input asp-for="Product.Material" label="@L["Material"]" />
         </abp-modal-body>
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>

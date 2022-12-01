@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PlastikMarketim.Entities.Categories;
 using PlastikMarketim.Entities.ContactForms;
+using PlastikMarketim.Entities.Files;
 using PlastikMarketim.Entities.Logs;
 using PlastikMarketim.Entities.Products;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -33,6 +34,7 @@ namespace PlastikMarketim.EntityFrameworkCore
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<File> Files { get; set; }
 
 
         #region Entities from the modules

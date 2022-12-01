@@ -1,4 +1,5 @@
-﻿using PlastikMarketim.Entities.Products;
+﻿using PlastikMarketim.Dtos.Files;
+using PlastikMarketim.Entities.Products;
 using PlastikMarketim.Enums;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,13 @@ namespace PlastikMarketim.Entities.Categories
         {
             Products = new List<ProductDto>();
         }
+
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<ProductDto> Products { get; set; }
+        public Nullable<int> ImageId { get; set; }
+        public FileDto Image { get; set; }
         public DateTime InsertedDate { get; set; } = DateTime.Now;
         public Status Status { get; set; } = Status.Active;
+        public List<ProductDto> Products { get; set; }
     }
 }

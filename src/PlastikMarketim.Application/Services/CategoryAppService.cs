@@ -19,10 +19,8 @@ namespace PlastikMarketim.Services
     [Authorize]
     public class CategoryAppService : CrudAppService<Category, CategoryDto, int, PagedAndSortedResultRequestDto, CategoryDto, CategoryDto>, ICategoryAppService
     {
-        public CategoryAppService(
-           IRepository<Category, int> repository) : base(repository)
+        public CategoryAppService(IRepository<Category, int> repository) : base(repository)
         {
-
         }
 
         public async Task<PagedResultDto<CategoryViewModel>> GetCategoryListAsync(GetProductListRequestDto input)
@@ -31,7 +29,8 @@ namespace PlastikMarketim.Services
 
             var query = Repository.AsQueryable();
 
-            //FILTER
+            query = query.Include(x => x.Image);
+
             if (!string.IsNullOrEmpty(input.NameFilter))
                 query = query.Where(x => x.Name.Contains(input.NameFilter));
 
@@ -39,15 +38,16 @@ namespace PlastikMarketim.Services
             query = ApplySorting(query, input);
             query = ApplyPaging(query, input);
 
-            var categoryDtos = await query.ToListAsync();
+            var entities = await query.ToListAsync();
 
-            var data = categoryDtos.Select(x =>
+            var models = entities.Select(x =>
             {
-                var categoryViewModel = ObjectMapper.Map<Category, CategoryViewModel>(x);
-                return categoryViewModel;
+                var viewModel = ObjectMapper.Map<Category, CategoryViewModel>(x);
+                viewModel.ImageUrl = x.Image?.FilePath;
+                return viewModel;
             }).ToList();
 
-            result.Items = data;
+            result.Items = models;
             result.TotalCount = totalCount;
 
             return result;

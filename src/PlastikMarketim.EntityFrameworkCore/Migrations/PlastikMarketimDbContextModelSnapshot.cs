@@ -31,6 +31,9 @@ namespace PlastikMarketim.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("InsertedDate")
                         .HasColumnType("datetime2");
 
@@ -42,6 +45,8 @@ namespace PlastikMarketim.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
 
                     b.ToTable("PMCategories");
                 });
@@ -82,6 +87,42 @@ namespace PlastikMarketim.Migrations
                     b.ToTable("PMContactForms");
                 });
 
+            modelBuilder.Entity("PlastikMarketim.Entities.Files.File", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileExtension")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FullPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PMFiles");
+                });
+
             modelBuilder.Entity("PlastikMarketim.Entities.Logs.Log", b =>
                 {
                     b.Property<int>("Id")
@@ -119,32 +160,65 @@ namespace PlastikMarketim.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Brand")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("FileUrl")
-                        .IsRequired()
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DetailImageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Dimension")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("InsertedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("KoliPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("KoliUnit")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Material")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal?>("PackagePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("PackageUnit")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("Unit")
+                    b.Property<int?>("Unit")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Weight")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("DetailImageId");
+
+                    b.HasIndex("ImageId");
 
                     b.ToTable("PMProducts");
                 });
@@ -2056,6 +2130,15 @@ namespace PlastikMarketim.Migrations
                     b.ToTable("AbpTenantConnectionStrings");
                 });
 
+            modelBuilder.Entity("PlastikMarketim.Entities.Categories.Category", b =>
+                {
+                    b.HasOne("PlastikMarketim.Entities.Files.File", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Image");
+                });
+
             modelBuilder.Entity("PlastikMarketim.Entities.Products.Product", b =>
                 {
                     b.HasOne("PlastikMarketim.Entities.Categories.Category", "Category")
@@ -2064,7 +2147,21 @@ namespace PlastikMarketim.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("PlastikMarketim.Entities.Files.File", "DetailImage")
+                        .WithMany()
+                        .HasForeignKey("DetailImageId");
+
+                    b.HasOne("PlastikMarketim.Entities.Files.File", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("DetailImage");
+
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>

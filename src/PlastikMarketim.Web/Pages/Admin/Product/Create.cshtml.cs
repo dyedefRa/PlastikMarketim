@@ -50,14 +50,23 @@ namespace PlastikMarketim.Web.Pages.Admin.Product
         {
             var dto = ObjectMapper.Map<CreateProductViewModel, ProductDto>(Product);
 
-            if (Product.File != null)
+            if (Product.ImageFile != null)
             {
-                var fileResult = await _fileAppService.SaveFileAsync(Product.File, UploadType.Product);
+                var fileResult = await _fileAppService.SaveFileAsync(Product.ImageFile, UploadType.Product);
                 if (!fileResult.Success)
                 {
                     //TODO:Hata döndürülecek
                 }
-                dto.FileUrl = fileResult.Message;
+                dto.ImageId = fileResult.Data.Id;
+            }
+            if (Product.DetailImageFile != null)
+            {
+                var fileResult = await _fileAppService.SaveFileAsync(Product.DetailImageFile, UploadType.Product);
+                if (!fileResult.Success)
+                {
+                    //TODO:Hata döndürülecek
+                }
+                dto.DetailImageId = fileResult.Data.Id;
             }
             await _productAppService.CreateAsync(dto);
 
@@ -70,16 +79,25 @@ namespace PlastikMarketim.Web.Pages.Admin.Product
             [StringLength(128)]
             [DisplayName("ProductName")]
             public string Name { get; set; }
+            public string Brand { get; set; }
+            public string Material { get; set; }
+            public decimal Weight { get; set; }
+            public string Dimension { get; set; }
             [Required]
-            public int Unit { get; set; }
-            [Required]
-            [DisplayName("Price")]
+            [TextArea(Rows = 2)]
+            public string Description { get; set; }
+            public Nullable<int> KoliUnit { get; set; }
+            public decimal KoliPrice { get; set; }
+            public Nullable<int> PackageUnit { get; set; }
+            public decimal PackagePrice { get; set; }
+            public Nullable<int> Unit { get; set; }
             public decimal Price { get; set; }
-
             [Required]
             [DisplayName("Image")]
-            public IFormFile File { get; set; }
-            public string FileUrl { get; set; }
+            public IFormFile ImageFile { get; set; }
+            public int ImageId { get; set; }
+            public IFormFile DetailImageFile { get; set; }
+            public Nullable<int> DetailImageId { get; set; }
             [Required]
             [SelectItems(nameof(Categories))]
             [DisplayName("Category")]

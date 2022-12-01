@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PlastikMarketim.Migrations
 {
-    public partial class Initialize : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -458,22 +458,6 @@ namespace PlastikMarketim.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PMCategories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    InsertedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PMCategories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PMContactForms",
                 columns: table => new
                 {
@@ -490,6 +474,26 @@ namespace PlastikMarketim.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PMContactForms", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PMFiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileExtension = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileSize = table.Column<long>(type: "bigint", nullable: true),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PMFiles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -1060,28 +1064,26 @@ namespace PlastikMarketim.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PMProducts",
+                name: "PMCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Unit = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    FileUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageId = table.Column<int>(type: "int", nullable: true),
                     InsertedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PMProducts", x => x.Id);
+                    table.PrimaryKey("PK_PMCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PMProducts_PMCategories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "PMCategories",
+                        name: "FK_PMCategories_PMFiles_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "PMFiles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1103,6 +1105,53 @@ namespace PlastikMarketim.Migrations
                         name: "FK_AbpEntityPropertyChanges_AbpEntityChanges_EntityChangeId",
                         column: x => x.EntityChangeId,
                         principalTable: "AbpEntityChanges",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PMProducts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Weight = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Dimension = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    KoliUnit = table.Column<int>(type: "int", nullable: true),
+                    KoliPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    PackageUnit = table.Column<int>(type: "int", nullable: true),
+                    PackagePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Unit = table.Column<int>(type: "int", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    InsertedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    ImageId = table.Column<int>(type: "int", nullable: false),
+                    DetailImageId = table.Column<int>(type: "int", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PMProducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PMProducts_PMCategories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "PMCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PMProducts_PMFiles_DetailImageId",
+                        column: x => x.DetailImageId,
+                        principalTable: "PMFiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PMProducts_PMFiles_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "PMFiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1296,9 +1345,24 @@ namespace PlastikMarketim.Migrations
                 columns: new[] { "SubjectId", "SessionId", "Type" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_PMCategories_ImageId",
+                table: "PMCategories",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PMProducts_CategoryId",
                 table: "PMProducts",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PMProducts_DetailImageId",
+                table: "PMProducts",
+                column: "DetailImageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PMProducts_ImageId",
+                table: "PMProducts",
+                column: "ImageId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1452,6 +1516,9 @@ namespace PlastikMarketim.Migrations
 
             migrationBuilder.DropTable(
                 name: "AbpAuditLogs");
+
+            migrationBuilder.DropTable(
+                name: "PMFiles");
         }
     }
 }

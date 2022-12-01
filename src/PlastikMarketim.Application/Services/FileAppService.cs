@@ -1,73 +1,52 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using PlastikMarketim.Abstracts;
+using PlastikMarketim.Dtos.Files;
+using PlastikMarketim.Entities.Files;
 using PlastikMarketim.Enums;
 using PlastikMarketim.Helpers;
 using PlastikMarketim.Utilities.Results.Abstract;
 using PlastikMarketim.Utilities.Results.Concrete;
 using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Repositories;
 
 namespace PlastikMarketim.Services
 {
     [Authorize]
-    public class FileAppService : ApplicationService, IFileAppService
+    public class FileAppService : CrudAppService<File, FileDto, int, PagedAndSortedResultRequestDto, FileDto, FileDto>, IFileAppService
     {
-        public async Task<IDataResult<string>> SaveFileAsync(IFormFile fromFile, UploadType uploadType)
+        public FileAppService(IRepository<File, int> repository) : base(repository)
+        {
+        }
+
+        public async Task<IDataResult<FileDto>> SaveFileAsync(IFormFile fromFile, UploadType uploadType)
         {
             try
             {
                 var data = await UploadHelper.UploadAsync(fromFile, uploadType);
-
-                if (data.Success)
-                    return new SuccessDataResult<string>(data.Message);
-
-                return new ErrorDataResult<string>("Dosya eklenirken sorun oluştu.");
-
+                var entity = ObjectMapper.Map<FileDto, File>(data.Data);
+                var insertedData = await Repository.InsertAsync(entity, true);
+                var resultDto = ObjectMapper.Map<File, FileDto>(insertedData);
+                return new SuccessDataResult<FileDto>(resultDto);
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "FileAppService > SaveFileAsync");
-                return new ErrorDataResult<string>("Dosya eklenirken sorun oluştu.");
+                Log.Error(ex, "FileAppService > SaveFileAsync has error !");
+
+                return new ErrorDataResult<FileDto>(new FileDto(), "Dosya eklenirken sorun oluştu.");
             }
         }
-        //[AllowAnonymous]
-        //public async Task<IDataResult<GetFileRequestDto>> GetFileAsync(Guid fileId)
-        //{
-        //    try
-        //    {
-        //        var file = await Repository.GetAsync(fileId);
-        //        if (file == null)
-        //        {
-        //            //burada standart bir resim dönülebilir.
-        //            return new ErrorDataResult<GetFileRequestDto>(await GetErrorMessage("FileNotFound", "Dosya bulunamadı."));
 
-        //        }
-        //        Byte[] fileBytes = System.IO.File.ReadAllBytes(file.FullPath);
-
-        //        return new SuccessDataResult<GetFileRequestDto>(new GetFileRequestDto
-        //        {
-        //            FileBytes = fileBytes,
-        //            ContentType = file.ContentType
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log.Error(ex, "FileAppService > GetFileAsync");
-        //        return new ErrorDataResult<GetFileRequestDto>();
-        //    }
-        //}
-
-        //public async Task SoftDeleteAsync(Guid Id)
-        //{
-        //    var entity = Repository.FirstOrDefault(x => x.Id == Id);
-        //    entity.Status = Enums.Status.Deleted;
-        //    await Repository.UpdateAsync(entity);
-        //}
+        public async Task SoftDeleteAsync(int Id)
+        {
+            var entity = Repository.FirstOrDefault(x => x.Id == Id);
+            entity.Status = Enums.Status.Deleted;
+            await Repository.UpdateAsync(entity);
+        }
     }
 }

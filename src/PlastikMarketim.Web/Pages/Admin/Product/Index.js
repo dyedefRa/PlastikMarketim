@@ -43,34 +43,105 @@
                     title: l('ProductName'),
                     data: "name",
                     render: function (data) {
-                        if (data === null || data === '') {
-                            return '-'
-                        }
-                        return data;
+                        return checkNullable(data);
+                    }
+                },
+                {
+                    title: l('CategoryName'),
+                    data: "categoryName",
+                    render: function (data) {
+                        return checkNullable(data);
+                    }
+                },
+                {
+                    title: l('Image'),
+                    data: "imageUrl",
+                    render: function (data) {
+                        return applyImage(data);
+                    }
+                },
+                {
+                    title: l('DetailImage'),
+                    data: "detailImageUrl",
+                    render: function (data) {
+                        return applyImage(data);
+                    }
+                },
+                {
+                    title: l('Description'),
+                    data: "description",
+                    render: function (data) {
+                        return applyShortening(data);
+                    }
+                },
+                {
+                    title: l('KoliUnit'),
+                    data: "koliUnit",
+                    render: function (data) {
+                        return checkNullable(data);
+                    }
+                },
+                {
+                    title: l('KoliPrice'),
+                    data: "koliPrice",
+                    render: function (data) {
+                        return checkNullable(data);
+                    }
+                },
+                {
+                    title: l('PackageUnit'),
+                    data: "packageUnit",
+                    render: function (data) {
+                        return checkNullable(data);
+                    }
+                },
+                {
+                    title: l('PackagePrice'),
+                    data: "packagePrice",
+                    render: function (data) {
+                        return checkNullable(data);
                     }
                 },
                 {
                     title: l('Unit'),
                     data: "unit",
                     render: function (data) {
-                        return data;
+                        return checkNullable(data);
                     }
                 },
                 {
                     title: l('Price'),
                     data: "price",
                     render: function (data) {
-                        return data;
+                        return checkNullable(data);
                     }
                 },
                 {
-                    title: l('Image'),
-                    data: "fileUrl",
+                    title: l('Brand'),
+                    data: "brand",
                     render: function (data) {
-                        if (data === null || data === '') {
-                            return '';
-                        }
-                        return '<img  src= "' + data + '"  class="form-group" width="80"  />';
+                        return checkNullable(data);
+                    }
+                },
+                {
+                    title: l('Weight'),
+                    data: "weight",
+                    render: function (data) {
+                        return checkNullable(data);
+                    }
+                },
+                {
+                    title: l('Dimension'),
+                    data: "dimension",
+                    render: function (data) {
+                        return checkNullable(data);
+                    }
+                },
+                {
+                    title: l('Material'),
+                    data: "material",
+                    render: function (data) {
+                        return checkNullable(data);
                     }
                 },
                 {

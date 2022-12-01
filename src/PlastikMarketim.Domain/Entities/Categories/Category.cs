@@ -1,4 +1,5 @@
-﻿using PlastikMarketim.Entities.Products;
+﻿using PlastikMarketim.Entities.Files;
+using PlastikMarketim.Entities.Products;
 using PlastikMarketim.Enums;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,15 @@ namespace PlastikMarketim.Entities.Categories
     [Table(PlastikMarketimConsts.DbTablePrefix + "Categories")]
     public class Category : Entity<int>
     {
-        public Category()
-        {
-            //Products = new List<Product>();
-        }
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
+        public Nullable<int> ImageId { get; set; }
+        [ForeignKey("ImageId")]
+        public virtual File Image { get; set; }
         public DateTime InsertedDate { get; set; }
         public Status Status { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
